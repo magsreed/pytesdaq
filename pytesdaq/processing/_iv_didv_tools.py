@@ -551,6 +551,8 @@ class IVanalysis(object):
             
             if lgcplot:
                 didvobjsc.plot_full_trace(
+                    lp_cutoff=20e3,
+                    didv_freq_filt=True,
                     saveplot=lgcsave,
                     savepath=self.figsavepath,
                     savename=f'didv_{didvsc.qetbias:.3e}',
@@ -630,6 +632,8 @@ class IVanalysis(object):
 
             if lgcplot:
                 didvobjn.plot_full_trace(
+                    lp_cutoff=20e3,
+                    didv_freq_filt=True,
                     saveplot=lgcsave,
                     savepath=self.figsavepath,
                     savename=f'didv_{didvn.qetbias:.3e}',
@@ -759,7 +763,7 @@ class IVanalysis(object):
             )
 
 
-    def fit_tran_didv(self, lgcplot=False, lgcsave=False, lp_cutoff=None,
+    def fit_tran_didv(self, lgcplot=False, lgcsave=False, lp_cutoff=20e3,
                       zoomfactor=None, **kwargs):
         """
         Function to fit all the didv data in the IV sweep data.
@@ -908,6 +912,7 @@ class IVanalysis(object):
 
             if lgcplot:
                 didvobj_p.plot_full_trace(
+                    didv_freq_filt=True,
                     saveplot=lgcsave,
                     savepath=self.figsavepath,
                     savename=f'didv_{row.qetbias:.3e}',
@@ -916,6 +921,7 @@ class IVanalysis(object):
 
                 if zoomfactor is not None:
                     didvobj_p.plot_zoomed_in_trace(
+                        didv_freq_filt=True,
                         saveplot=lgcsave,
                         savepath=self.figsavepath,
                         savename=f'didv_{row.qetbias:.3e}',
@@ -1653,7 +1659,7 @@ class IVanalysis(object):
         optimum_r0_t = r0s[tauminind]
         optimum_e = energy_res[eminind]
         optimum_t = energy_res[tauminind]
-
+        
         if lgcplot:
             plot._plot_energy_res_vs_bias(
                 self,
