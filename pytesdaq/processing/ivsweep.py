@@ -549,8 +549,15 @@ class IVSweepProcessing:
             metadata = h5reader.get_file_info(a_file)
             
             # data purpose
-            data_purpose = metadata['data_purpose']
-
+            data_purpose = None
+            if 'data_purpose' in metadata.keys():
+                data_purpose = metadata['data_purpose']
+            elif 'run_purpose' in metadata.keys():
+                data_purpose = metadata['run_purpose']
+            else:
+                raise ValueError('ERROR: Missing "data_purpose" '
+                                 'metadata in hdf5 file!')
+            
             # series name
             series_name = h5io.extract_series_name(metadata['series_num'])
 
